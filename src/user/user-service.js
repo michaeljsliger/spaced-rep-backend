@@ -4,7 +4,7 @@ const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*
 
 const UserService = {
   hasUserWithUserName(db, username) {
-    return db('user')
+    return db('users')
       .where({ username })
       .first()
       .then(user => !!user)
@@ -12,7 +12,7 @@ const UserService = {
   insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into('user')
+      .into('users')
       .returning('*')
       .then(([user]) => user)
   },
@@ -58,14 +58,16 @@ const UserService = {
         .first()
 
       const languageWords = [
-        ['entraine toi', 'practice', 2],
-        ['bonjour', 'hello', 3],
-        ['maison', 'house', 4],
-        ['développeur', 'developer', 5],
-        ['traduire', 'translate', 6],
-        ['incroyable', 'amazing', 7],
-        ['chien', 'dog', 8],
-        ['chat', 'cat', null],
+        ['entre nous', 'between us', 2],
+        ['alors', 'then', 3],
+        ['petite-amie', 'girlfriend', 4],
+        ['le ciel', 'the sky', 5],
+        ['parler', 'speak', 6],
+        ['tromper', 'cheat', 7],
+        ['hier', 'yesterday', 8],
+        ['formidable', 'extraordinary', 9],
+        ['saoule', 'drunk', 10],
+        ['faucon', 'falcon', null],
       ]
 
       const [languageHeadId] = await trx

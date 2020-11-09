@@ -114,16 +114,16 @@ function cleanTables(db) {
       `TRUNCATE
         "word",
         "language",
-        "user"`
+        "users"`
       )
       .then(() =>
         Promise.all([
           trx.raw(`ALTER SEQUENCE word_id_seq minvalue 0 START WITH 1`),
           trx.raw(`ALTER SEQUENCE language_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`ALTER SEQUENCE user_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
           trx.raw(`SELECT setval('word_id_seq', 0)`),
           trx.raw(`SELECT setval('language_id_seq', 0)`),
-          trx.raw(`SELECT setval('user_id_seq', 0)`),
+          trx.raw(`SELECT setval('users_id_seq', 0)`),
         ])
       )
   )
@@ -141,10 +141,10 @@ function seedUsers(db, users) {
     password: bcrypt.hashSync(user.password, 1)
   }))
   return db.transaction(async trx => {
-    await trx.into('user').insert(preppedUsers)
+    await trx.into('users').insert(preppedUsers)
 
     await trx.raw(
-      `SELECT setval('user_id_seq', ?)`,
+      `SELECT setval('users_id_seq', ?)`,
       [users[users.length - 1].id],
     )
   })
