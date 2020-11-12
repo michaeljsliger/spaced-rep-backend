@@ -149,7 +149,7 @@ describe('User Endpoints', function () {
           .send(newUser)
           .expect(res =>
             db
-              .from('user')
+              .from('users')
               .select('*')
               .where({ id: res.body.id })
               .first()
@@ -175,16 +175,31 @@ describe('User Endpoints', function () {
           name: 'French',
           total_score: 0,
           words: [
-            { original: 'entraine toi', translation: 'practice' },
-            { original: 'bonjour', translation: 'hello' },
-            { original: 'maison', translation: 'house' },
-            { original: 'développeur', translation: 'developer' },
-            { original: 'traduire', translation: 'translate' },
-            { original: 'incroyable', translation: 'amazing' },
-            { original: 'chien', translation: 'dog' },
-            { original: 'chat', translation: 'cat' },
+            { original: 'entre nous', translation: 'between us' },
+            { original: 'alors', translation: 'then' },
+            { original: 'petite-amie', translation: 'girlfriend' },
+            { original: 'le ciel', translation: 'the sky' },
+            { original: 'parler', translation: 'speak' },
+            { original: 'tromper', translation: 'cheat' },
+            { original: 'hier', translation: 'yesterday' },
+            { original: 'formidable', translation: 'extraordinary' },
+            { original: 'saoule', translation: 'drunk' },
+            { original: 'faucon', translation: 'falcon' },
           ]
         }
+        /*
+        ['entre nous', 'between us', 2],
+        ['alors', 'then', 3],
+        ['petite-amie', 'girlfriend', 4],
+        ['le ciel', 'the sky', 5],
+        ['parler', 'speak', 6],
+        ['tromper', 'cheat', 7],
+        ['hier', 'yesterday', 8],
+        ['formidable', 'extraordinary', 9],
+        ['saoule', 'drunk', 10],
+        ['faucon', 'falcon', null],
+      ] */
+
         return supertest(app)
           .post('/api/user')
           .send(newUser)
